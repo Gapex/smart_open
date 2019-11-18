@@ -47,7 +47,10 @@ script:
       unset SO_S3_URL;
       unset SO_S3_RESULT_URL;
     fi
-  - sh -c "moto_server -p5000 1> /dev/null 2> /dev/null" &
+  - if [[ ${SO_DISABLE_MOCKS} -eq 1]]; then 
+      sh -c "moto_server -p5000 1> /dev/null 2> /dev/null" &
+      echo "runing moto server on localhost:5000"
+    fi
   - flake8 --max-line-length=110
   - python setup.py test
   - export SO_S3_URL=$SO_S3_URL/$(python -c 'from uuid import uuid4;print(uuid4())')
