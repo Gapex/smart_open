@@ -47,7 +47,7 @@ script:
       unset SO_S3_URL;
       unset SO_S3_RESULT_URL;
     fi
-  - moto_server -p5000
+  - sh -c "moto_server -p5000 1> /dev/null 2> /dev/null" &
   - flake8 --max-line-length=110
   - python setup.py test
   - export SO_S3_URL=$SO_S3_URL/$(python -c 'from uuid import uuid4;print(uuid4())')
