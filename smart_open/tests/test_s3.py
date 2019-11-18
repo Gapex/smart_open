@@ -107,11 +107,7 @@ def ignore_resource_warnings():
 class SeekableRawReaderTest(unittest.TestCase):
 
     def setUp(self):
-        self._local_resoruce = boto3.resource('s3',
-            aws_access_key_id='fake-key-id',
-            aws_secret_access_key='fake-access-key',
-            aws_session_token='fake-session-token',
-            endpoint_url='http://localhost:5000')
+        self._local_resoruce = boto3.resource('s3', endpoint_url='http://localhost:5000')
         self._local_resoruce.Bucket(BUCKET_NAME).create()
         self._local_resoruce.Object(BUCKET_NAME, KEY_NAME).put(Body=b'123456')
 
