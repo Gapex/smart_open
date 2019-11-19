@@ -12,6 +12,7 @@ matrix:
       env:
         - SO_DISABLE_MOCKS: "1"
         - SO_S3_URL: "s3://smart-open-py27-benchmark"
+        - SO_ENABLE_MOTO_SERVER: "0"
         - SO_S3_RESULT_URL: "s3://smart-open-py27-benchmark-results"
         - AWS_ACCESS_KEY_ID: "fake"
         - AWS_SECRET_ACCESS_KEY: "fake"
@@ -22,6 +23,7 @@ matrix:
     - python: '3.6'
       env:
         - SO_DISABLE_MOCKS: "1"
+        - SO_ENABLE_MOTO_SERVER: "0"
         - SO_S3_URL: "s3://smart-open-py36-benchmark"
         - SO_S3_RESULT_URL: "s3://smart-open-py36-benchmark-results"
         - AWS_ACCESS_KEY_ID: "fake"
@@ -32,6 +34,7 @@ matrix:
     - python: '3.7'
       env:
         - SO_DISABLE_MOCKS: "1"
+        - SO_ENABLE_MOTO_SERVER: "0"
         - SO_S3_URL: "s3://smart-open-py37-benchmark"
         - SO_S3_RESULT_URL: "s3://smart-open-py37-benchmark-results"
         - BOTO_CONFIG: "/dev/null"
@@ -41,8 +44,8 @@ matrix:
 
 install:
   - pip install --upgrade setuptools
-  - pip install moto
   - pip install flask
+  - pip install moto
   - pip install .[test]
   - pip install flake8
   - pip freeze
@@ -55,7 +58,9 @@ script:
       unset SO_S3_URL;
       unset SO_S3_RESULT_URL;
     fi
-  - sh -c "moto_server -p5000 1> /dev/null 2> /dev/null" &
+  - if [[ ${SO_ENABLE_MOTO_SERVER} -eq 1 ]]; then
+      sh -c "moto_server -p5000 1> /dev/null 2> /dev/null" &
+    fi
   - flake8 --max-line-length=110
   - python setup.py test
   - export SO_S3_URL=$SO_S3_URL/$(python -c 'from uuid import uuid4;print(uuid4())')
