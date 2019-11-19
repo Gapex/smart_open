@@ -50,9 +50,7 @@ script:
       unset SO_S3_RESULT_URL;
     fi
   - if [ "${SO_DISABLE_MOTO_SERVER}" != 1 ]; then
-      sh -c "moto_server -p5000 2> /dev/null &"
-    else
-      echo "disable runing of moto server."
+      sh -c "moto_server -p5000 2> /dev/null &";
     fi
   - flake8 --max-line-length=110
   - python setup.py test
