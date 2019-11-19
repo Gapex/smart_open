@@ -14,9 +14,6 @@ matrix:
         - SO_DISABLE_MOTO_SERVER: "1"
         - SO_S3_URL: "s3://smart-open-py27-benchmark"
         - SO_S3_RESULT_URL: "s3://smart-open-py27-benchmark-results"
-        - AWS_ACCESS_KEY_ID: "1"
-        - AWS_SECRET_ACCESS_KEY: "2"
-        - AWS_SESSION_TOKEN: "3"
 
     - python: '3.5'
 
@@ -26,9 +23,6 @@ matrix:
         - SO_DISABLE_MOTO_SERVER: "1"
         - SO_S3_URL: "s3://smart-open-py36-benchmark"
         - SO_S3_RESULT_URL: "s3://smart-open-py36-benchmark-results"
-        - AWS_ACCESS_KEY_ID: "1"
-        - AWS_SECRET_ACCESS_KEY: "2"
-        - AWS_SESSION_TOKEN: "3"
 
     - python: '3.7'
       env:
@@ -37,9 +31,6 @@ matrix:
         - SO_S3_URL: "s3://smart-open-py37-benchmark"
         - SO_S3_RESULT_URL: "s3://smart-open-py37-benchmark-results"
         - BOTO_CONFIG: "/dev/null"
-        - AWS_ACCESS_KEY_ID: "1"
-        - AWS_SECRET_ACCESS_KEY: "2"
-        - AWS_SESSION_TOKEN: "3"
       dist: xenial
 
 
